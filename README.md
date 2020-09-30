@@ -4,6 +4,8 @@
 
 # `up`
 
+[![Build](https://github.com/janwiemers/up/workflows/CI/badge.svg)](https://github.com/janwiemers/up/actions)
+
 Provides a super simplistic uptime monitor, no fancy stuff just barebones up across various different protocols. Its aim is to be setup easily and operated without effort.
 
 ## TODOs
