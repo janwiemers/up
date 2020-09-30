@@ -53,6 +53,36 @@ monitors:
 
 Supported protocols are `http` (can be http or https) as well as `dns`
 
+## Configuration
+
+There are several variables that make the configuration of `up`
+
+### General
+
+| VAR              | Description                            | Default               |
+| ---------------- | -------------------------------------- | --------------------- |
+| PORT             | The port the server is starting on     | 8080                  |
+| UP_BASE_URL      | URL of the running server              | http://localhost:8080 |
+| DB_PATH          | Path to the sqlite DB                  | ./up.db               |
+| DB_CLEANUP_AFTER | Time after which the DB deletes checks | 24h                   |
+
+### Monitor configuration
+
+| VAR               | Description                                          | Default               |
+| ----------------- | ---------------------------------------------------- | --------------------- |
+| MAX_RETRY         | Max retry count before marking a monitor as degraded | 3                     |
+| MONITOR_FILE_PATH | Path to load the config from                         | ./config.example.yaml |
+
+### Email
+
+| VAR                        | Description                      | Default |
+| -------------------------- | -------------------------------- | ------- |
+| EMAIL_TO                   | Email or DL to send the email to | ""      |
+| EMAIL_SENDER_PASSWORD      | Password of the smtp login       | ""      |
+| EMAIL_SENDER_FROM          | Email of the smpt login          | ""      |
+| EMAIL_SENDER_HOST          | SMPT Host                        | ""      |
+| NOTIFICATIONS_ENABLE_EMAIL | Enable email notifications       | false   |
+
 ## How to contribute
 
 I'm really glad you're reading this.
