@@ -17,7 +17,14 @@ run.server:
 run.cli:
 	./upcli
 
+build.docker:
+	docker build -t up:latest .
+
+run.docker:
+	docker run -p 8080:8080 up:latest
+
 buildAndRun.server: build.server run.server
+buildAndRun.docker: build.docker run.docker
 buildAndRun.cli: build.cli run.cli
 
 	
