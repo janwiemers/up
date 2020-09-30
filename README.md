@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/logo.svg />
+  <img src="/logo.svg" />
 </div>
 
 # `up`
