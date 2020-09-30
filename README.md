@@ -14,6 +14,8 @@ Provides a super simplistic uptime monitor, no fancy stuff just barebones up acr
 
 To build the server component
 
+### local
+
 ```
 make build.server
 make run.server
@@ -21,6 +23,18 @@ make run.server
 // or
 make buildAndRun.server
 ```
+
+### Docker
+
+```
+make build.doker
+make run.doker
+
+// or
+make buildAndRun.doker
+```
+
+### CLI
 
 To build the cli component
 
