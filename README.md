@@ -65,6 +65,16 @@ monitors:
     label: `string` (default = "")
 ```
 
+| Property    | Description                         | Type           | Default  |
+| ----------- | ----------------------------------- | -------------- | -------- |
+| name        | The displayed name of the monitor   | `string`       | `""`     |
+| target      | The URL or IP of the monitor        | `string`       | `""`     |
+| expectation | Expected Answer                     | `string`       | `"200"`  |
+| protocol    | Service Type                        | `string`       | `"http"` |
+| interval    | Service Type                        | `time.Dration` | `5m`     |
+| interval    | Service Type                        | `time.Dration` | `5m`     |
+| label       | Label to add additional information | `stringn`      | `""`     |
+
 Supported protocols are `http` (can be http or https) as well as `dns`
 
 ## Configuration
