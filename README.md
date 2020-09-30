@@ -52,3 +52,23 @@ monitors:
 ```
 
 Supported protocols are `http` (can be http or https) as well as `dns`
+
+## How to contribute
+
+I'm really glad you're reading this.
+
+Submitting changes
+
+- Fork this repository
+- Create a branch in your fork
+- Send a Pull Request along wih a clear description of your changes as well as specs
+
+Always write a clear log message for your commits. One-line messages are fine for small changes, but bigger changes should look like this:
+
+```
+\$ git commit -m "A brief summary of the commit
+
+> A paragraph describing what changed and its impact."
+> Coding conventions
+> Start reading our code and you'll get the hang of it. We optimize for readability:
+```
