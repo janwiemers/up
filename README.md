@@ -16,7 +16,7 @@ To build the server component
 
 ### local
 
-```
+```shell
 make build.server
 make run.server
 
@@ -26,7 +26,7 @@ make buildAndRun.server
 
 ### Docker
 
-```
+```shell
 make build.doker
 make run.doker
 
@@ -38,7 +38,7 @@ make buildAndRun.doker
 
 To build the cli component
 
-```
+```shell
 make build.cli
 make run.cli
 
