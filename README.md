@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="/logo.svg />
+</div>
+
 # `up`
 
 Provides a super simplistic uptime monitor, no fancy stuff just barebones up across various different protocols. Its aim is to be setup easily and operated without effort.
