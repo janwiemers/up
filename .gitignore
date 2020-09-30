@@ -1,0 +1,4 @@
+*.db
+upcli
+./server
+./config.yaml

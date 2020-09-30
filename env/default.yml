@@ -1,0 +1,11 @@
+PORT: 8080
+MAX_RETRY: 3
+MONITOR_FILE_PATH: ./config.example.yaml
+DB_PATH: ./up.db
+EMAIL_TO: jan@anne-jan.de
+EMAIL_SENDER_PASSWORD: Ert434pxrw!
+EMAIL_SENDER_FROM: jansoeren.wiemers@gmail.com
+EMAIL_SENDER_HOST: smtp.gmail.com:587
+NOTIFICATIONS_ENABLE_EMAIL: true
+DB_CLEANUP_AFTER: 24h
+UP_BASE_URL: http://localhost:8080
