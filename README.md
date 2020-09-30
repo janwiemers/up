@@ -53,7 +53,7 @@ the default path is `config.example.yaml`
 
 **Example**
 
-```
+```yaml
 ---
 monitors:
   my_app_1:
