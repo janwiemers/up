@@ -1,4 +1,4 @@
 *.db
 upcli
-./server
-./config.yaml
+up
+config.yaml

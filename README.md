@@ -19,11 +19,11 @@ To build the server component
 ### local
 
 ```sh
-make build.server
-make run.server
+make build.up
+make run.up
 
 // or
-make buildAndRun.server
+make buildAndRun.up
 ```
 
 ### Docker

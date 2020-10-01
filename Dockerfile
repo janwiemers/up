@@ -24,4 +24,4 @@ COPY --from=Builder --chown=app:app /build/env /app/env
 COPY --from=Builder --chown=app:app /build/config.example.yaml /app/config.example.yaml
 RUN chown -R app:app /app
 USER app
-CMD ["./server"]
+CMD ["./up"]

@@ -5,14 +5,14 @@
 test_all:
 	go test -v -coverpkg=./... -coverprofile=profile.cov ./... && go tool cover -func profile.cov && rm -rf profile.cov
 
-build.server:
-	go build -o server -ldflags="-s -w" cmd/server/main.go
+build.up:
+	go build -o up -ldflags="-s -w" cmd/server/main.go
 
 build.cli:
 	go build -o upcli -ldflags="-s -w" cmd/cli/main.go
 
-run.server:
-	./server
+run.up:
+	./up
 
 run.cli:
 	./upcli
