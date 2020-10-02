@@ -4,11 +4,6 @@ import (
 	"time"
 )
 
-// Monitors Represents the yaml entry point to define monitors
-type Monitors struct {
-	Applications map[string]Application `yaml:"monitors"`
-}
-
 // Application represents the config file up will monitor
 type Application struct {
 	ID          int           `gorm:"primarykey"  json:"id"`

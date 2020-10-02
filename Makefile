@@ -23,7 +23,7 @@ build.docker:
 run.docker:
 	docker run -p 8080:8080 up:latest
 
-buildAndRun.server: build.server run.server
+buildAndRun.up: build.up run.up
 buildAndRun.docker: build.docker run.docker
 buildAndRun.cli: build.cli run.cli
 

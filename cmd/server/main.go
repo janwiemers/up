@@ -10,6 +10,7 @@ import (
 	"github.com/janwiemers/up/helper"
 	"github.com/janwiemers/up/models"
 	"github.com/janwiemers/up/monitors"
+	"github.com/janwiemers/up/websockets"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"gopkg.in/yaml.v3"
@@ -32,7 +33,7 @@ func init() {
 }
 
 func loadAndInitialzeConfigs() {
-	monitorConfigs := models.Monitors{}
+	monitorConfigs := []models.Application{}
 	err := yaml.Unmarshal(loadFile(), &monitorConfigs)
 	if err != nil {
 		log.Fatalf("error: %v", err)
@@ -44,6 +45,8 @@ func loadAndInitialzeConfigs() {
 func main() {
 	loadAndInitialzeConfigs()
 	go helper.Cleanup()
+	websockets.HubInstance = websockets.NewHub()
+	go websockets.HubInstance.Run()
 	gin.DisableConsoleColor()
 	r := gin.New()
 
@@ -53,6 +56,5 @@ func main() {
 	r.Use(cors.New(config))
 	r.Use(gin.Recovery())
 	handler.SetupRouter(r)
-
 	r.Run(":" + viper.GetString("PORT"))
 }

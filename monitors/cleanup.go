@@ -6,7 +6,7 @@ import (
 )
 
 // Cleanup deletes monitors that are not in the config file
-func Cleanup(monitors models.Monitors) {
+func Cleanup(monitors []models.Application) {
 	apps := database.Applications()
 	for i := range apps {
 		app := apps[i]
@@ -18,9 +18,9 @@ func Cleanup(monitors models.Monitors) {
 	}
 }
 
-func contains(name string, monitors models.Monitors) bool {
-	for m := range monitors.Applications {
-		monitor := monitors.Applications[m]
+func contains(name string, monitors []models.Application) bool {
+	for m := range monitors {
+		monitor := monitors[m]
 		if monitor.Name == name {
 			return true
 		}

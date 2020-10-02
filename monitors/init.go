@@ -1,6 +1,7 @@
 package monitors
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"strconv"
@@ -9,13 +10,14 @@ import (
 	"github.com/janwiemers/up/database"
 	"github.com/janwiemers/up/models"
 	"github.com/janwiemers/up/notifications"
+	"github.com/janwiemers/up/websockets"
 	"github.com/spf13/viper"
 )
 
 // InitAllMonitors initializes the Monitors for all applications given in the `monitors` argument
-func InitAllMonitors(monitors models.Monitors) {
-	for monitor := range monitors.Applications {
-		app := populateApplicationDefaults(monitors.Applications[monitor])
+func InitAllMonitors(monitors []models.Application) {
+	for monitor := range monitors {
+		app := populateApplicationDefaults(monitors[monitor])
 
 		// create application in DB
 		app = database.CreateAndUpdateApplication(app)
@@ -50,7 +52,8 @@ func InitMonitor(id int, retry int) {
 			return
 		}
 		time.Sleep(10 * time.Second)
-		database.InsertCheck(app, up)
+		c, _ := database.InsertCheck(app, up)
+		websockets.BroadcastCheck(*c)
 		go InitMonitor(app.ID, retry+1)
 		return
 	}
@@ -61,7 +64,8 @@ func InitMonitor(id int, retry int) {
 		app = database.ApplicationSetDegraded(app, false)
 	}
 
-	database.InsertCheck(app, up)
+	c, _ := database.InsertCheck(app, up)
+	websockets.BroadcastCheck(*c)
 	go InitMonitor(app.ID, 0)
 }
 
@@ -79,4 +83,9 @@ func populateApplicationDefaults(application models.Application) models.Applicat
 	}
 
 	return application
+}
+
+func sendMessage(t string, payload []byte) {
+	j, _ := json.Marshal(fmt.Sprintf("{type: \"%v\", message: %v}", t, payload))
+	websockets.HubInstance.Broadcast <- j
 }

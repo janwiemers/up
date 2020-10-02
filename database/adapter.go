@@ -31,11 +31,11 @@ func CreateAndUpdateApplication(application models.Application) models.Applicati
 }
 
 // InsertCheck inserts a new check into the databse
-func InsertCheck(application models.Application, up bool) (bool, error) {
+func InsertCheck(application models.Application, up bool) (*models.Check, error) {
 	db := connect()
 	var app models.Application
 	db.Select([]string{"ID", "Name"}).First(&app, "name = ?", application.Name)
-	db.Create(&models.Check{UP: up, ApplicationID: app.ID})
-
-	return true, nil
+	c := &models.Check{UP: up, ApplicationID: app.ID}
+	db.Create(c)
+	return c, nil
 }

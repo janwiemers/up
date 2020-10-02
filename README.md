@@ -7,6 +7,9 @@
 [![Build](https://github.com/janwiemers/up/workflows/CI/badge.svg)](https://github.com/janwiemers/up/actions)
 
 Provides a super simplistic uptime monitor, no fancy stuff just barebones up across various different protocols. Its aim is to be setup easily and operated without effort.
+`up` starts a go routine for every monitor defined in the `config.yaml`. This ensures that even if one monitor crashes the other will survive.
+
+When a monitor fails `up` will retry it the amount of times defined in `MAX_RETRY`. If it fails the defined amount of times it will mark the specific monitor as `degraded`.
 
 ## TODOs
 
@@ -57,14 +60,12 @@ the default path is `config.example.yaml`
 
 ```yaml
 ---
-monitors:
-  my_app_1:
-    name: My App 1
-    target: `string` (default = "")
-    expectation: `string` (default = 200)
-    protocol: `string` (default = http)
-    interval: `time.Dration` (default = 5m)
-    label: `string` (default = "")
+- name: My App 1
+  target: `string` (default = "")
+  expectation: `string` (default = 200)
+  protocol: `string` (default = http)
+  interval: `time.Dration` (default = 5m)
+  label: `string` (default = "")
 ```
 
 | Property    | Description                         | Type           | Default  |
@@ -122,7 +123,7 @@ Submitting changes
 Always write a clear log message for your commits. One-line messages are fine for small changes, but bigger changes should look like this:
 
 ```
-\$ git commit -m "A brief summary of the commit
+$ git commit -m "A brief summary of the commit
 
 > A paragraph describing what changed and its impact."
 > Coding conventions

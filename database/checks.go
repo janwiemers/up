@@ -12,7 +12,7 @@ func Checks(id int) ([]models.Check, error) {
 	db := connect()
 
 	var checks []models.Check
-	err := db.Order("id desc").Limit(24).Select("id", "up", "created_at").Find(&checks, "application_id = ?", id).Error
+	err := db.Order("id desc").Limit(24).Select("id", "up", "created_at", "application_id").Find(&checks, "application_id = ?", id).Error
 	if err != nil {
 		return nil, err
 	}
