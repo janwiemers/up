@@ -14,7 +14,7 @@ type Application struct {
 	Expectation string        `yaml:"expectation" json:"expectation"`
 	Target      string        `yaml:"target"      json:"target"`
 	Interval    time.Duration `yaml:"interval"    json:"interval"`
-	Checks      []Check       `json:"-"`
+	Checks      []Check       `json:"checks"`
 	Label       string        `yaml:"label"       json:"label"`
 	Degraded    bool          `json:"degraded"`
 }

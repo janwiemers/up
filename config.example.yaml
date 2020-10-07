@@ -1,6 +1,4 @@
 ---
-monitors:
-  google:
-    name: Google
-    target: https://google.com
-    label: production
+- name: Google
+  target: https://google.com
+  label: production
