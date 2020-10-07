@@ -43,6 +43,10 @@ func InitMonitor(id int, retry int) {
 		up = dnsMonitor(app.Target, app.Expectation)
 	}
 
+	if app.Protocol == "tcp" {
+		up = tcpMonitor(app.Target, app.Expectation)
+	}
+
 	if up != true {
 		log.Println(fmt.Sprintf("%v: %v", app.Name, up))
 		if retry == viper.GetInt("MAX_RETRY") && app.Degraded == false {
