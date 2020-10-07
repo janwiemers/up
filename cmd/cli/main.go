@@ -245,6 +245,9 @@ func getFirstCheckDate(checks []models.Check) string {
 }
 
 func getLastCheckDate(checks []models.Check) string {
+	if len(checks) == 0 {
+		return ""
+	}
 	max := len(checks) - 1
 	return checks[max].CreatedAt.Format("15:04:05")
 }

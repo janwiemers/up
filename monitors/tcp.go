@@ -1,20 +1,17 @@
 package monitors
 
 import (
+	"log"
 	"net"
 	"time"
 )
 
 func tcpMonitor(url string, expectation string) bool {
 	timeout := time.Second
-	conn, err := net.DialTimeout("tcp", url, timeout)
+	_, err := net.DialTimeout("tcp", url, timeout)
 	if err != nil {
+		log.Println(err)
 		return false
 	}
-	if conn != nil {
-		defer conn.Close()
-		return true
-	}
-
-	return false
+	return true
 }

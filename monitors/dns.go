@@ -11,7 +11,7 @@ func dnsMonitor(address string, expectation string) bool {
 		PreferGo: true,
 		Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
 			d := net.Dialer{
-				Timeout: time.Millisecond * time.Duration(1000),
+				Timeout: time.Second,
 			}
 			return d.DialContext(ctx, "udp", address)
 		},
