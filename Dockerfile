@@ -8,8 +8,8 @@ RUN apk add upx make gcc libc-dev
 ENV GO111MODULE=auto
 ENV CGO_ENABLED: 0
 ENV GOOS: linux
-RUN make build.server
-RUN upx -9 server
+RUN make build.up
+RUN upx -9 up
 
 FROM golang:1.15.2-alpine3.12
 
