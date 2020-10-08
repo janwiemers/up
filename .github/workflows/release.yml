@@ -1,26 +1,20 @@
+name: Publish Docker image
 on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
       - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
-
-name: Create Release
-
 jobs:
-  build:
-    name: Create Release
+  push_to_registry:
+    name: Publish docker image
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Check out the repo
         uses: actions/checkout@v2
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body_path: LATEST_RELEASE.md
-          draft: false
-          prerelease: false
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: janwiemers/up
+          tag_with_ref: true
