@@ -31,6 +31,7 @@ var (
 const (
 	iconWarning = "⚠️"
 	iconOK      = "🙂"
+	alertByte   = "\a"
 )
 
 type configStruct struct {
@@ -221,6 +222,14 @@ func addCheckToMonitor(c models.Check) {
 		monitor := monitors[i]
 		if monitor.ID == c.ApplicationID {
 			monitors[i].Checks = append(monitors[i].Checks, c)
+			monitors[i].Degraded = !c.UP
+			if monitors[i].Degraded == true && monitors[i].Alerted == false {
+				monitors[i].Alerted = true
+				fmt.Print("\a")
+			}
+			if monitors[i].Degraded == false {
+				monitors[i].Alerted = false
+			}
 			if len(monitors[i].Checks) > 24 {
 				_, monitors[i].Checks = monitors[i].Checks[0], monitors[i].Checks[1:]
 			}
@@ -275,6 +284,7 @@ func getMonitorName(m models.Application) string {
 	if m.Degraded == true {
 		color = "red"
 		icon = iconWarning
+
 	}
 	return fmt.Sprintf("[%v %v](fg:%v)", m.Name, icon, color)
 }
