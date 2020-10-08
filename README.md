@@ -1,5 +1,5 @@
 <div align="center">
-  <img height="100px" src="/logo.svg" />
+  <img height="100px" src="/assets/logo.svg" />
 </div>
 
 # `up`
@@ -11,9 +11,9 @@ Provides a super simplistic uptime monitor, no fancy stuff just barebones up acr
 
 When a monitor fails `up` will retry it the amount of times defined in `MAX_RETRY`. If it fails the defined amount of times it will mark the specific monitor as `degraded`.
 
-## TODOs
+## Table of Contents
 
-- [ ] Implement Command line flag to fetch config file path
+{:toc}
 
 ## Building and running the application
 
@@ -32,23 +32,11 @@ make buildAndRun.up
 ### Docker
 
 ```sh
-make build.doker
-make run.doker
+make build.docker
+make run.docker
 
 // or
-make buildAndRun.doker
-```
-
-### CLI
-
-To build the cli component
-
-```sh
-make build.cli
-make run.cli
-
-// or
-make buildAndRun.cli
+make buildAndRun.docker
 ```
 
 ## Monitor Configuration
@@ -56,16 +44,32 @@ make buildAndRun.cli
 `up` uses a yaml syntax to describe its monitors.
 the default path is `config.example.yaml`
 
-**Example**
+**Examples**
 
 ```yaml
 ---
-- name: My App 1
-  target: `string` (default = "")
-  expectation: `string` (default = 200)
-  protocol: `string` (default = http)
-  interval: `time.Dration` (default = 5m)
-  label: `string` (default = "")
+# A Monitor that checks the availability of a specific A Record
+- name: DNS service
+  target: 8.8.8.8
+  expectation: cloudflare.com
+  protocol: dns
+  interval: 30s
+  label: production
+
+# A Monitor that checks if a specific TCP port is open
+- name: TCP service
+  target: google.com
+  protocol: tcp
+  interval: 30s
+  label: production
+
+# A Monitor that checks if a specific HTTP endpoint is giving a given response
+- name: TCP service
+  target: https://google.com
+  protocol: http
+  expectation: 200
+  interval: 30s
+  label: production
 ```
 
 | Property    | Description                         | Type           | Default  |
@@ -109,6 +113,27 @@ There are several variables that make the configuration of `up`
 | EMAIL_SENDER_FROM          | Email of the smpt login          | `""`    |
 | EMAIL_SENDER_HOST          | SMPT Host                        | `""`    |
 | NOTIFICATIONS_ENABLE_EMAIL | Enable email notifications       | `false` |
+
+## CLI
+
+This repository additionally contains a terminal client to receive the data from `up`
+
+<div align="center">
+  <img src="/assets/cli.svg" />
+</div>
+
+To run the CLI you'll need to a have a `~/.up` file. The file follows the yaml syntax and currently has the following options
+| VAR | Description | Default | Example |
+| --- | --------------------- | ------- | --------------- |
+| url | host of the up server | `""` | `locahost:8080` |
+
+```sh
+make build.cli
+make run.cli
+
+// or
+make buildAndRun.cli
+```
 
 ## How to contribute
 
