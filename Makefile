@@ -3,7 +3,7 @@
 .DEFAULT_GOAL := test_all
 
 test_all:
-	go test -v -coverpkg=./... -coverprofile=profile.cov ./... && go tool cover -func profile.cov && rm -rf profile.cov
+	go test -p 1 -v -coverpkg=./... -coverprofile=profile.cov ./... && go tool cover -func profile.cov && rm -rf profile.cov
 
 build.up:
 	go build -o up -ldflags="-s -w" cmd/server/main.go
