@@ -49,7 +49,7 @@ the default path is `config.example.yaml`
 ```yaml
 ---
 # A Monitor that checks the availability of a specific A Record
-- name: DNS service
+- name: DNS Monitor
   target: 8.8.8.8
   expectation: cloudflare.com
   protocol: dns
@@ -57,18 +57,25 @@ the default path is `config.example.yaml`
   label: production
 
 # A Monitor that checks if a specific TCP port is open
-- name: TCP service
+- name: TCP Monitor
   target: google.com
   protocol: tcp
   interval: 30s
   label: production
 
 # A Monitor that checks if a specific HTTP endpoint is giving a given response
-- name: TCP service
+- name: TCP Monitor
   target: https://google.com
   protocol: http
   expectation: 200
   interval: 30s
+  label: production
+
+# A Monitor that checks if a specific HTTP endpoint is giving a given response
+- name: ICMP Monitor
+  target: https://google.com
+  protocol: icmp
+  interval: 10s
   label: production
 ```
 
@@ -119,7 +126,7 @@ There are several variables that make the configuration of `up`
 This repository additionally contains a terminal client to receive the data from `up`
 
 <div align="center">
-  <img src="/assets/cli.svg" />
+  <img src="/assets/cli.png" />
 </div>
 
 To run the CLI you'll need to a have a `~/.up` file. The file follows the yaml syntax and currently has the following options
