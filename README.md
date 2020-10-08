@@ -132,6 +132,15 @@ There are several variables that make the configuration of `up`
 | EMAIL_SENDER_HOST          | SMPT Host                        | `""`    |
 | NOTIFICATIONS_ENABLE_EMAIL | Enable email notifications       | `false` |
 
+### Prometheus
+
+`up` exports prometheus compatible metrics. There are a default metrics that belong to GO as well as GIN and two custom metrics that one can use to monitor the state and amount of the monitors
+
+| metric            | Description                                         | Default |
+| ----------------- | --------------------------------------------------- | ------- |
+| active_monitors   | provides a counter with the current loaded monitors | `0`     |
+| degraded_monitors | provides a gauge with the current degraded monitors | `0`     |
+
 ## CLI
 
 This repository additionally contains a terminal client to receive the data from `up`

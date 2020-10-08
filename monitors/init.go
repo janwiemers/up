@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/janwiemers/up/database"
+	"github.com/janwiemers/up/helper"
 	"github.com/janwiemers/up/models"
 	"github.com/janwiemers/up/notifications"
 	"github.com/janwiemers/up/websockets"
@@ -24,6 +25,7 @@ func InitAllMonitors(monitors []models.Application) {
 
 		// start monitor
 		go InitMonitor(app.ID, 0)
+		helper.ActiveMonitors.Inc()
 	}
 }
 
@@ -56,9 +58,15 @@ func InitMonitor(id int, retry int) {
 		if retry == viper.GetInt("MAX_RETRY") && app.Degraded == false {
 			go InitMonitor(app.ID, 0)
 			app = database.ApplicationSetDegraded(app, true)
+			helper.DegradedMonitors.Inc()
 			notifications.Dispatch(app.Name, true)
 			return
 		}
+
+		if app.Degraded == true {
+			helper.DegradedMonitors.Dec()
+		}
+
 		time.Sleep(10 * time.Second)
 		c, _ := database.InsertCheck(app, up)
 		websockets.BroadcastCheck(*c)

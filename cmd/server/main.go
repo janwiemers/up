@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/Depado/ginprom"
 	"github.com/gin-gonic/contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/janwiemers/up/handler"
@@ -41,6 +42,13 @@ func main() {
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
 
+	p := ginprom.New(
+		ginprom.Engine(r),
+		ginprom.Subsystem("gin"),
+		ginprom.Path("/metrics"),
+	)
+
+	r.Use(p.Instrument())
 	r.Use(cors.New(config))
 	r.Use(gin.Recovery())
 	handler.SetupRouter(r)
