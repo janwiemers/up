@@ -13,7 +13,22 @@ When a monitor fails `up` will retry it the amount of times defined in `MAX_RETR
 
 ## Table of Contents
 
-{:toc}
+- [`up`](#up)
+  - [Table of Contents](#table-of-contents)
+  - [Building and running the application](#building-and-running-the-application)
+    - [local](#local)
+    - [Docker](#docker)
+  - [Monitor Configuration](#monitor-configuration)
+- [A Monitor that checks the availability of a specific A Record](#a-monitor-that-checks-the-availability-of-a-specific-a-record)
+- [A Monitor that checks if a specific TCP port is open](#a-monitor-that-checks-if-a-specific-tcp-port-is-open)
+- [A Monitor that checks if a specific HTTP endpoint is giving a given response](#a-monitor-that-checks-if-a-specific-http-endpoint-is-giving-a-given-response)
+- [A Monitor that checks if a specific HTTP endpoint is giving a given response](#a-monitor-that-checks-if-a-specific-http-endpoint-is-giving-a-given-response-1)
+  - [Configuration](#configuration)
+    - [General](#general)
+    - [Monitor configuration](#monitor-configuration-1)
+    - [Email](#email)
+  - [CLI](#cli)
+  - [How to contribute](#how-to-contribute)
 
 ## Building and running the application
 

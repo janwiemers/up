@@ -17,6 +17,7 @@ type Application struct {
 	Checks      []Check       `json:"checks"`
 	Label       string        `yaml:"label"       json:"label"`
 	Degraded    bool          `json:"degraded"`
+	Alerted     bool
 }
 
 // Check is the datastructure that holds the checks and their results
