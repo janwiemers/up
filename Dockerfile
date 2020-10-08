@@ -19,7 +19,7 @@ RUN addgroup -g 1000 -S app && \
   adduser -u 1000 -S app -G app && \
   date -u > BUILD_TIME
 
-COPY --from=Builder --chown=app:app /build/server /app/server
+COPY --from=Builder --chown=app:app /build/up /app/up
 COPY --from=Builder --chown=app:app /build/env /app/env
 COPY --from=Builder --chown=app:app /build/config.example.yaml /app/config.example.yaml
 RUN chown -R app:app /app
