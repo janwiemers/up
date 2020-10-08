@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"os/signal"
+	"os/user"
 	"time"
 
 	ui "github.com/gizak/termui/v3"
@@ -16,6 +17,7 @@ import (
 	"github.com/janwiemers/up/helper"
 	"github.com/janwiemers/up/models"
 	"github.com/janwiemers/up/websockets"
+	"gopkg.in/yaml.v2"
 )
 
 var (
@@ -23,6 +25,7 @@ var (
 	selectedListItem         int      = 0
 	previousSelectedListItem int      = 0
 	grid                     *ui.Grid = ui.NewGrid()
+	config                            = configStruct{}
 )
 
 const (
@@ -30,8 +33,17 @@ const (
 	iconOK      = "🙂"
 )
 
+type configStruct struct {
+	URL string `yaml:"url"`
+}
+
 func main() {
-	helper.InitViperConfig()
+	usr, err := user.Current()
+	err = yaml.Unmarshal(helper.ReadFile(fmt.Sprintf("%v/.up", usr.HomeDir)), &config)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
+	log.Println(config)
 	if err := ui.Init(); err != nil {
 		log.Fatalf("failed to initialize termui: %v", err)
 	}
@@ -150,9 +162,10 @@ func buildTable(monitors []models.Application) [][]string {
 }
 
 func connect() {
+	log.Println(config)
 	u := url.URL{
 		Scheme: "ws",
-		Host:   "localhost:8080",
+		Host:   config.URL,
 		Path:   "/ws",
 	}
 	interrupt := make(chan os.Signal, 1)

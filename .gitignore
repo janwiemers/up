@@ -2,3 +2,4 @@
 upcli
 up
 config.yaml
+cmd/test/

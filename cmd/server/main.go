@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
-
 	"github.com/gin-gonic/contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/janwiemers/up/handler"
@@ -16,15 +13,6 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-func loadFile() []byte {
-	data, err := ioutil.ReadFile(viper.GetString("MONITOR_FILE_PATH"))
-	if err != nil {
-		fmt.Println("File reading error", err)
-		return nil
-	}
-	return data
-}
-
 func init() {
 	helper.InitViperConfig()
 	log.SetFormatter(&log.JSONFormatter{})
@@ -34,7 +22,7 @@ func init() {
 
 func loadAndInitialzeConfigs() {
 	monitorConfigs := []models.Application{}
-	err := yaml.Unmarshal(loadFile(), &monitorConfigs)
+	err := yaml.Unmarshal(helper.ReadFile(viper.GetString("MONITOR_FILE_PATH")), &monitorConfigs)
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
